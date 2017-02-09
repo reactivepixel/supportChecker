@@ -28,7 +28,9 @@ function connect(){
 			//	Payload includes user list, save them?
 			if(payload.users){ /* Store users manually */ }
 
-			bot.rooms = {};
+			bot.rooms = {
+				bot_test: 'bot_test'
+			};
 			//	Payload includes channels, set into memory cache
 			if(payload.channels){
 				payload.channels.map(function(channel){
@@ -50,7 +52,7 @@ function connect(){
 			}
 
 			//	Make the bot say hello when he joins
-			bot.say({text: 'Online! <@' + bot.identity.id + '> running on ' + os.hostname()  + '!', channel: bot.rooms.slack_hack_night});
+			bot.say({text: 'Online! <@' + bot.identity.id + '> running on ' + os.hostname()  + '!', channel: bot.rooms.bot_test});
 
 		}
 	});

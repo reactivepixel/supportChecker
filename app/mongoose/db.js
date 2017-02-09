@@ -1,5 +1,6 @@
 var mongoose = require("mongoose");
 
+ mongoose.Promise = global.Promise;
 // Connection strigh is set to MONGODB_URI if availible or default to localhost
 var uristring = process.env.MONGODB_URI || 'mongodb://localhost/slackbot';
 

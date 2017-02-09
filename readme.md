@@ -44,12 +44,12 @@ npm i -g nodemon
 ```
 #### Get the Bot's Token
 
-Obtain @spambot's Bot Token from the #slack_hack_night channel on [wdd.slack.com](https://wdd.slack.com).
+Obtain the Bot Token from the an Admin for your Slack. The link will be subdomain.slack.com/apps/A0F7YS25R-bots
 
 Create an ```.env``` file on the root of your project with the token.
 
 ```
-echo "BOT_TOKEN=paste_your_bot_token_here" > .env
+echo "REALTIME_SLACK_TOKEN=xoxb-............." > .env
 ```
 
 #### Start Your Servers
@@ -67,23 +67,15 @@ nodemon src/server.js
 
 ## Interacting / Testing the Bot
 
-A majority of your testing should occur through Direct Messages with @spambot. If your feature needs to be tested in a room please use the room #slack_hack_night. Note that multiple devs will be using the same bots, therefor you may get some of their testing data or output. As a matter of courtesy try to set your bot to trigger only on commands related to your feature.
 
-## Development
+## Interesting things the Bot Does
 
-Add your functionality as a new script within ```src/controllers/``` and require it into ```src/server.js```. If you need to make any adjustments to the main server file, or add to ```src/models/``` go for it! Just be aware you are at a higher risk of merge conflicts.
+* Send message to new user account that is created. (app/slack/onboard.js)
+* When the bot Starts, broadcast message (currently to #bot_test). (app/slack/default_connection.js)
+* Respond to reaction emoji added (app/slack/personality.js)
+* constantly ping heroku to prevent a sleep (app/app.js)
 
 ### How to Release
-
-Developers will be testing on @spambot. As your feature is completed and ready to promote to staging make a pull request to this repo, once merged in it will automatically deploy to @phishbot. At the end of the Hack Night we will revise the final code and push to production and your scripts will live on in infamy under @hal.
-
-| Bot | Environment|
-|:---|:---|
-| @hal | Production |
-| @phishbot | Staging |
-| @spambot | Development |
-
-
 
 ### Resources
 

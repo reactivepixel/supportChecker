@@ -1,13 +1,14 @@
 {
-  "name": "hal",
-  "version": "0.0.1",
+  "name": "check",
+  "version": "1.0.0",
   "description": "Botkit assistant for Slack",
   "homepage": "https://github.com/reactivepixel/SlackBot",
   "main": "app/app.js",
-  "author": "Studnicky",
+  "author": "Studnicky, Chapman",
   "license": "MIT",
   "engines": {
-    "node": "5.1.0"
+    "node": "v6.9.5",
+    "npm": "v3.10.10"
   },
   "scripts": {
     "start": "node app/app.js",
@@ -25,7 +26,7 @@
   },
   "dependencies": {
     "async": "^2.0.0-rc.4",
-    "botkit": "0.0.15",
-    "mongoose": "^4.4.15"
+    "botkit": "^0.4.10",
+    "mongoose": "^4.8.1"
   }
 }
