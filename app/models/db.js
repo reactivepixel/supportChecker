@@ -50,7 +50,7 @@ const check = sequelize.define('check', {
     type: Sequelize.STRING,
   },
   outcome: {
-    type: Sequelize.ENUM('Closed', 'Pending'),
+    type: Sequelize.ENUM('Positive', 'Pending', 'Negative'),
     defaultValue: 'Pending',
   },
   text: {
@@ -60,6 +60,36 @@ const check = sequelize.define('check', {
     type: Sequelize.STRING,
   },
 });
+
+const question = sequelize.define('question', {
+  channel: {
+    type: Sequelize.STRING,
+  },
+  user: {
+    type: Sequelize.STRING,
+  },
+  text: {
+    type: Sequelize.STRING,
+  },
+  ts: {
+    type: Sequelize.STRING,
+  },
+  source_team: {
+    type: Sequelize.STRING,
+  },
+  question: {
+    type: Sequelize.TEXT,
+  },
+  positiveInteraction: {
+    type: Sequelize.BOOLEAN,
+  },
+  resolved: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
+  },
+});
+
 exports.sequelize = sequelize;
 exports.msg = msg;
 exports.check = check;
+exports.question = question;

@@ -1,5 +1,6 @@
 // Msg model for database interactions
 var Check = require('../models/check.js');
+var Question = require('../models/question.js');
 
 const commandWord = 'assisted';
 
@@ -58,14 +59,59 @@ var default_message = {
 									dm.say('Thanks! :beers:');
 							  });
 
-								tempMsg = message;
-								tempMsg.user = check.unformattedTargetUser
-
 								console.log('** Sending new message to target Student');
-								bot.startPrivateConversation(tempMsg,function(err,dm) {
-							    dm.say('Hello! I see that <@' + check.initiatingUser + '> helped you address an issue.');
-									dm.say('Was this a :+1: or :-1: experience?');
-							  });
+								bot.startPrivateConversation({user: check.unformattedTargetUser}, askFeedback);
+
+								function askFeedback(response, convo){
+									convo.ask('Hello! I see that <@' + check.initiatingUser + '> helped you with an issue. Was this a :+1: or :-1: experience? Please reply with a comment to confirm :smiley:', (questionResponse, convo) => {
+
+
+										// Positive Response
+										if(questionResponse.text.match('thumbsup_all|thumbsup|\\+1')){
+
+											// Save response to DB
+											questionResponse.positiveInteraction = true;
+											questionResponse.resolved = true;
+											Question.create(questionResponse, console.error, console.log)
+
+											convo.say('Thanks for the feedback! :wink:');
+										// Negative Response
+										} else if (questionResponse.text.match('thumbsdown|\\-1')){
+
+											negativeFeedbackFollowup(questionResponse, convo);
+										// unrecognized response
+										} else {
+											convo.say(':thinking_face: Hrmm... Unfortunatly I was not able to detect a :thumbsup: or :thumbsdown: in your comment (note: I\'m not smart enough to recognize reactions, only comments). Could you please respond with either `:thumbsup:` for a positive expereince or with a `:thumbsdown:` to indicate you had a negative experience. This will allow us to better assist you moving forward with this issue. Let\'s try again.')
+											askFeedback(questionResponse, convo);
+										}
+
+
+
+										convo.next();
+									});
+								}
+
+								// function unrecognizedResponse(response, convo){
+								// 	convo.ask(':thinking_face: Hrmm... Unfortunatly I was not able to detect a :thumbsup: or :thumbsdown: in your comment (note: I\'m not smart enough to recognize reactions, only comments). Could you please respond with either `:thumbsup:` for a positive expereince or with a `:thumbsdown:` to indicate you had a negative experience. This will allow us to better assist you moving forward with this issue. Let\'s try again.', (unrecognizedRes, convo) => {
+								//
+								// 		askFeedback(unrecognizedRes, convo);
+								// 		convo.next();
+								// 	});
+								// }
+
+								function negativeFeedbackFollowup(response, convo){
+									convo.ask('Sorry to hear that :cold_sweat::face_with_head_bandage:. We will look into this further. Could you explain what the problem is in a single message? My capabilities have been limited; for humanity\'s protection.', (negResponse, convo) => {
+										convo.say('I will notate this and pass it along. Thanks for your honest feedback. Again, sorry for this poor experience. We will work to improve it. Please give us a day to try and clear things up. In the meantime try reaching out to the related public slack channels to help address your issue if it is technical in nature. If your issue is personal in nature or you feel uncomfortable discussing this further with a whom first initiated this contact please reach out to your Course Director directly through Slack and/or Email.')
+
+										// Save response to DB
+										negResponse.positiveInteraction = false;
+										negResponse.resolved = false;
+										Question.create(negResponse, console.error, console.log);
+
+										convo.next();
+									});
+								}
+
 							});
 
 						// If a match is found
