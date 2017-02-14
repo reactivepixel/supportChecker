@@ -33,52 +33,28 @@ const msg = sequelize.define('msg', {
   }
 });
 
-const check = sequelize.define('check', {
-  initiatingUser: {
-    type: Sequelize.STRING,
-  },
-  unformattedTargetUser: {
-    type: Sequelize.STRING,
-  },
-  formattedTargetUser: {
-    type: Sequelize.STRING,
-  },
-  response: {
-    type: Sequelize.TEXT,
-  },
-  topic: {
-    type: Sequelize.STRING,
-  },
-  outcome: {
-    type: Sequelize.ENUM('Positive', 'Pending', 'Negative'),
-    defaultValue: 'Pending',
-  },
-  text: {
-    type: Sequelize.STRING,
-  },
-  ts: {
-    type: Sequelize.STRING,
-  },
-});
 
 const question = sequelize.define('question', {
   channel: {
     type: Sequelize.STRING,
   },
-  user: {
+  staffSlackUser: {
     type: Sequelize.STRING,
   },
-  text: {
+  studentSlackUser: {
     type: Sequelize.STRING,
+  },
+  topic: {
+    type: Sequelize.STRING,
+  },
+  studentResponse: {
+    type: Sequelize.TEXT,
   },
   ts: {
     type: Sequelize.STRING,
   },
   source_team: {
     type: Sequelize.STRING,
-  },
-  question: {
-    type: Sequelize.TEXT,
   },
   positiveInteraction: {
     type: Sequelize.BOOLEAN,
@@ -91,5 +67,4 @@ const question = sequelize.define('question', {
 
 exports.sequelize = sequelize;
 exports.msg = msg;
-exports.check = check;
 exports.question = question;

@@ -36,3 +36,36 @@ exports.destroy = (payload, err, success) => {
     }
   }).then(success).catch(err);
 }
+
+exports.setandClosePositive = (payload) => {
+  payload.positiveInteraction = true;
+  payload.resolved = true;
+
+  db.question.update(payload, {
+      where: {
+        id: payload.id,
+      }
+  }).then(console.log).catch(console.error)
+}
+
+exports.setNegative = (payload) => {
+  payload.positiveInteraction = false;
+  payload.resolved = false;
+
+  db.question.update(payload, {
+      where: {
+        id: payload.id,
+      }
+  }).then(console.log).catch(console.error)
+}
+
+exports.closeNegative = (payload) => {
+  payload.positiveInteraction = false;
+  payload.resolved = true;
+
+  db.question.update(payload, {
+      where: {
+        id: payload.id,
+      }
+  }).then(console.log).catch(console.error)
+}
