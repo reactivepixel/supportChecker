@@ -3,7 +3,7 @@ var default_message = {
 	events: function(controller, bot) {
 
 		// Msg model for database interactions
-		var Msg = require('../models/msg.js');
+		var Msg = require('../../models/msg.js');
 
 		// Every to any incoming message
 		controller.on(['ambient', 'direct_message', 'direct_mention', 'mention'], function(bot, message) {

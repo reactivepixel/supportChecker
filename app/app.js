@@ -6,7 +6,7 @@ if (!process.env.REALTIME_SLACK_TOKEN) {
 var slack = require('./slack'); //	Initialize Slack controller
 
 var http = require('http');
-var db = require('./models/db');
+var db = require('../models/db');
 
 // Sync DB then start services
 db.sequelize.sync().then(() => {

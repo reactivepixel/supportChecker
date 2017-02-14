@@ -69,3 +69,14 @@ exports.closeNegative = (payload) => {
       }
   }).then(console.log).catch(console.error)
 }
+
+exports.recallStudent = (payload, err, success) => {
+  db.question.findAll({
+    where: payload,
+    // Find all relations in sequelize
+    include: [{
+      all: true,
+      nested: true,
+    }],
+  }).then(success).catch(err);
+}
