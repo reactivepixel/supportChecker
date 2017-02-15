@@ -1,4 +1,4 @@
-# Slack Hack Night
+# Support Bot
 
 ## Installation
 Requirements
@@ -6,16 +6,14 @@ Requirements
 * NodeJS ( [Video: How to Install](https://youtu.be/sD4IQjyv9f8) )
 
 
-#### MongoDB Installation
+#### MySQL Installation
 
-With _Brew_ already installed you can run the following commands to install MongoDB, setup your database folder, and assign the correct permissions to it.
+With _Brew_ already installed you can run the following command to install Mysql / MariaDB (same but better).
 
-> Note: MongoDB Installation is required but you can skip if you already have it installed.
+> Note: MySQL or MariaDB Installation is required but you can skip if you already have it installed.
 
 ```
-brew install mongodb
-sudo mkdir -p /data/db
-sudo chown -R $(whoami): /data
+brew install mariadb
 ```
 
 #### Get the Code
@@ -37,36 +35,44 @@ Install the dependencies. Navigate to your code via terminal and command:
 npm install
 ```
 
-Additional Global Installs to make your life easier.
+Foreman is a required global install. This will let you run the bot and reporting services simultaneously.
 
 ```
-npm i -g nodemon
+npm i -g foreman
 ```
-#### Get the Bot's Token
 
-Obtain the Bot Token from the an Admin for your Slack. The link will be subdomain.slack.com/apps/A0F7YS25R-bots
+#### Obtain/Generate your Bot's Token
+
+Obtain the Bot Token from the an Admin for your Slack. The link will be yourSubDomain.slack.com/apps/A0F7YS25R-bots
 
 Create an ```.env``` file on the root of your project with the token.
 
 ```
-echo "REALTIME_SLACK_TOKEN=xoxb-............." > .env
+echo "REALTIME_SLACK_TOKEN=xoxb-Your_Token_Here" > .env
+```
+
+
+Add your local connection string to the env file using the format provided here. If this is misconfigured when starting your bot you will see _ECONNECTION_ issues.
+```
+echo "DB_URI=mysql://DBUser:DBPassword@Host:Port/DBName" >> .env
 ```
 
 #### Start Your Servers
 
-Start your MongoDB server in a separate terminal window.
+Start your MySQL server before turning on the Bot.
 ```
-mongod
+mysql.server start
 ```
 
-Start the bot.
+Start the bot and reporting tool with _Foreman_.
 
 ```
-nodemon src/server.js
+nf start
 ```
 
 ## Interacting / Testing the Bot
 
+No unit tests currently.
 
 ## Interesting things the Bot Does
 
@@ -77,9 +83,10 @@ nodemon src/server.js
 
 ### How to Release
 
+Automated pipeline not currently in place.
+
 ### Resources
 
 * [Video Walkthrough on Setting up your Environment](https://youtu.be/7KRkOCCpBCo)
 * [Botkit](https://howdy.ai/botkit/)
-* [WDD Slack](https://wdd.slack.com)
 * [Slack Real Time Messaging API (RTM)](https://api.slack.com/rtm)

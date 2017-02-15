@@ -9,31 +9,6 @@ const sequelize = new Sequelize(process.env.DB_URI, {
   logging: false,
 });
 
-const msg = sequelize.define('msg', {
-  type: {
-    type: Sequelize.STRING,
-  },
-  channel: {
-    type: Sequelize.STRING,
-  },
-  user: {
-    type: Sequelize.STRING,
-  },
-  text: {
-    type: Sequelize.STRING,
-  },
-  ts: {
-    type: Sequelize.STRING,
-  },
-  source_team: {
-    type: Sequelize.STRING,
-  },
-  event: {
-    type: Sequelize.STRING,
-  }
-});
-
-
 const question = sequelize.define('question', {
   channel: {
     type: Sequelize.STRING,
