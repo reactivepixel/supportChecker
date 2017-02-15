@@ -78,10 +78,13 @@ var default_message = {
 									Question.setNegative(questionInfo);
 								// unrecognized response
 								} else {
+
+									// Delete current question to avoid duplicates on restart of question cycle.
+									Question.destroy(questionInfo, console.error, console.log);
 									convo.say(':thinking_face: Hrmm... Unfortunatly I was not able to detect a ' +
 														':thumbsup: or :thumbsdown: in your comment (note: I\'m not smart enough ' +
 														'to recognize reactions, only comments). Could you please respond with either ' +
-														'`:thumbsup:` for a positive expereince or with a `:thumbsdown:` to indicate ' +
+														'`:thumbsup:` for a positive experience or with a `:thumbsdown:` to indicate ' +
 														'you had a negative experience. This will allow us to better assist you moving ' +
 														'forward with this issue. Let\'s try again.')
 									askFeedback(questionResponse, convo);
