@@ -15,20 +15,6 @@ var default_message = {
 					var serverLink = 'http://localhost:3100'
 					dm.say('`JSON` Student: ' + heard[1] + ' ' + serverLink + '/api/assists/received/' + targetStudentSlackUser)
 				});
-			//
-			// Question.recallStudent({studentSlackUser: targetStudentSlackUser}, console.error, (studentData) => {
-			// 	bot.startPrivateConversation(message, (res, dm) => {
-			// 		for(question in studentData) {
-			// 			var tmpStr = formatUserIDForSlackOutput(question.studentSlackUser) +
-			// 			' was helped on ' + question.createdAt +
-			// 			' by ' +
-			// 			formatUserIDForSlackOutput(question.staffSlackUser) +
-			// 			' with regards to ' + question.topic;
-			//
-			// 			dm.say(tmpStr);
-			// 		}
-			// 	});
-			// });
 		});
 		// Listen for command 'check' to be addressed to the bot
 		controller.hears(['(' + commandWord + ' <.*> [A-Za-z0-9_\s].*|' + commandWord + ')'], ['direct_message', 'direct_mention'], (bot, message) => {
