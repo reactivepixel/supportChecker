@@ -41,5 +41,4 @@ const question = sequelize.define('question', {
 });
 
 exports.sequelize = sequelize;
-exports.msg = msg;
 exports.question = question;
