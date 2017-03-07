@@ -12,23 +12,9 @@ var default_message = {
 			const targetStudentSlackUser = parseUserIDFromSlack(heard[1]);
 
 				bot.startPrivateConversation(message, (res, dm) => {
-					var serverLink = 'http://localhost:3100'
+					var serverLink = process.env.API_HOST;
 					dm.say('`JSON` Student: ' + heard[1] + ' ' + serverLink + '/api/assists/received/' + targetStudentSlackUser)
 				});
-			//
-			// Question.recallStudent({studentSlackUser: targetStudentSlackUser}, console.error, (studentData) => {
-			// 	bot.startPrivateConversation(message, (res, dm) => {
-			// 		for(question in studentData) {
-			// 			var tmpStr = formatUserIDForSlackOutput(question.studentSlackUser) +
-			// 			' was helped on ' + question.createdAt +
-			// 			' by ' +
-			// 			formatUserIDForSlackOutput(question.staffSlackUser) +
-			// 			' with regards to ' + question.topic;
-			//
-			// 			dm.say(tmpStr);
-			// 		}
-			// 	});
-			// });
 		});
 		// Listen for command 'check' to be addressed to the bot
 		controller.hears(['(' + commandWord + ' <.*> [A-Za-z0-9_\s].*|' + commandWord + ')'], ['direct_message', 'direct_mention'], (bot, message) => {
@@ -57,12 +43,11 @@ var default_message = {
 						}
 
 						Question.create(questionInfo, console.error, (initQuestionData) => {
-							convo.ask('Hello! I see that ' + formatUserIDForSlackOutput(targetUserName) + ' ' +
+							convo.ask('Hello! I see that ' + formatUserIDForSlackOutput(questionInfo.staffSlackUser) + ' ' +
 												'helped you with an issue. Was this a :+1: or :-1: experience? ' +
 												'Please reply with a comment to confirm :smiley:', (questionResponse, convo) => {
 
 								questionInfo.id = initQuestionData.id
-
 								// Positive Response
 								if(questionResponse.text.match('thumbsup_all|thumbsup|\\+1')){
 
@@ -119,8 +104,8 @@ var default_message = {
 
 					// Staff Conversation
 					bot.startPrivateConversation(message, (res, dm) => {
-				    dm.say(	'I have recorded that ' + formatUserIDForSlackOutput(targetUserName) + ' ' +
-										'was assisted with ' + topic + ' ' +
+				    dm.say(	'I have recorded that ' + formatUserIDForSlackOutput(message.user) + ' assisted ' + formatUserIDForSlackOutput(targetUserName) + ' ' +
+										'with `' + topic + '` ' +
 										'Thanks! :beers:');
 				  });
 
@@ -154,7 +139,12 @@ const formatUserIDForSlackOutput = (id) => {
 
 const parseUserIDFromSlack = (formattedID) => {
 	// clean <@ > off of the target user name
-	return formattedID.substr(2, (formattedID.length - 3));
+	if (formattedID != undefined){
+		return formattedID.substr(2, (formattedID.length - 3));
+	} else {
+		return false;
+	}
+
 }
 
 

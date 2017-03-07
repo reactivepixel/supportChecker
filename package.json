@@ -1,8 +1,8 @@
 {
   "name": "check",
   "version": "1.0.0",
-  "description": "Botkit assistant for Slack",
-  "homepage": "https://github.com/reactivepixel/SlackBot",
+  "description": "Customer Support for FS Students",
+  "homepage": "https://github.com/reactivepixel/supportChecker",
   "main": "app/app.js",
   "author": "Studnicky, Chapman",
   "license": "MIT",
@@ -16,24 +16,24 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:reactivepixel/SlackBot.git"
+    "url": "git@github.com:reactivepixel/supportChecker.git"
   },
   "bugs": {
-    "url": "https://github.com/reactivepixel/SlackBot/issues"
+    "url": "https://github.com/reactivepixel/supportChecker/issues"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
-    "dotenv": "^2.0.0",
-    "mocha": "^3.2.0"
+    "chai": "3.5.0",
+    "dotenv": "2.0.0",
+    "mocha": "3.2.0"
   },
   "dependencies": {
-    "async": "^2.0.0-rc.4",
-    "body-parser": "^1.16.1",
-    "botkit": "^0.4.10",
-    "express": "^4.14.1",
-    "express-csv": "^0.6.0",
-    "jsonexport": "^1.5.2",
-    "mysql": "^2.13.0",
-    "sequelize": "^3.30.2"
+    "async": "2.0.0-rc.4",
+    "body-parser": "1.16.1",
+    "botkit": "0.4.10",
+    "express": "4.14.1",
+    "express-csv": "0.6.0",
+    "jsonexport": "1.5.2",
+    "mysql": "2.13.0",
+    "sequelize": "3.30.2"
   }
 }
