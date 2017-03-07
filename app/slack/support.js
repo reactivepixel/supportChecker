@@ -44,8 +44,8 @@ var default_message = {
 
 						Question.create(questionInfo, console.error, (initQuestionData) => {
 							convo.ask('Hello! I see that ' + formatUserIDForSlackOutput(questionInfo.staffSlackUser) + ' ' +
-												'helped you with an issue. Was this a :+1: or :-1: experience? ' +
-												'Please reply with a comment to confirm :smiley:', (questionResponse, convo) => {
+												'helped you with an issue. ' +
+												'Please rate this experience with the appropriate emoji to confirm :+1: or :-1:.', (questionResponse, convo) => {
 
 								questionInfo.id = initQuestionData.id
 								// Positive Response
